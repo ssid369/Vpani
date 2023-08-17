@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const adminSchema =new mongoose.Schema({
-    username: String,
-    name:String,
+    email: String,
     password: String,
 });
 

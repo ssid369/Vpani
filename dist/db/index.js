@@ -20,8 +20,7 @@ const userSchema = new mongoose_1.default.Schema({
     orders: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Order" }]
 });
 const adminSchema = new mongoose_1.default.Schema({
-    username: String,
-    name: String,
+    email: String,
     password: String,
 });
 const productSchema = new mongoose_1.default.Schema({
