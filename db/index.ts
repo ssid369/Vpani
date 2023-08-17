@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from "mongoose";
+import { boolean } from "zod";
 
 const cartSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -35,12 +36,14 @@ const orderSchema = new mongoose.Schema({
     items:[{type: mongoose.Schema.Types.ObjectId, ref:"Product"}],
     price:Number,
     status:String,
+    current:{type:Boolean, default: true},
     orderDate: { type: Date, default: Date.now }
 });
 
 const categorySchema = new mongoose.Schema({
     name:String,
-    description:String
+    description:String,
+    products:[{type:mongoose.Schema.Types.ObjectId, ref:"Product"}]
 });
 
 export const Category = mongoose.model("Category",categorySchema);

@@ -36,11 +36,13 @@ const orderSchema = new mongoose_1.default.Schema({
     items: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" }],
     price: Number,
     status: String,
+    current: { type: Boolean, default: true },
     orderDate: { type: Date, default: Date.now }
 });
 const categorySchema = new mongoose_1.default.Schema({
     name: String,
-    description: String
+    description: String,
+    products: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" }]
 });
 exports.Category = mongoose_1.default.model("Category", categorySchema);
 exports.User = mongoose_1.default.model("User", userSchema);
