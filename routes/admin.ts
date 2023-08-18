@@ -35,7 +35,7 @@ router.post("/signup", async (req,res)=>{
     const newAdmin= new Admin(obj);
     await newAdmin.save();
     const token= jwt.sign({id:newAdmin._id},SECRETa,{expiresIn:"1h"});
-    return res.status(200).json({message:"sognup success",token});
+    return res.status(200).json({message:"signup success",token});
 });
 
 router.post("/login", async (req,res)=>{
@@ -48,7 +48,7 @@ router.post("/login", async (req,res)=>{
     const admin= await Admin.findOne({email:email, password:password});
     if(!admin)return res.status(400).json({message:"admin not found"});
     const token= jwt.sign({id:admin._id},SECRETa,{expiresIn:"1h"});
-    return res.status(200).json({message:"signup success",token});
+    return res.status(200).json({message:"signin success",token});
 });
 router.post("/products",adminAuth, async (req,res)=>{
     const obj= req.body;

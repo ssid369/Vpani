@@ -7,16 +7,18 @@ exports.Product = exports.Cart = exports.Order = exports.Admin = exports.User = 
 const mongoose_1 = __importDefault(require("mongoose"));
 const cartSchema = new mongoose_1.default.Schema({
     userId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "User" },
-    products: [{ item: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" },
+    products: [{ productId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" },
             quantity: Number }],
-    price: Number,
+    price: { type: Number, default: 0 },
     size: { type: Number, default: 0 }
 });
 const userSchema = new mongoose_1.default.Schema({
     email: String,
     name: String,
     password: String,
-    cart: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Cart" },
+    address: String,
+    pincode: Number,
+    cartId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Cart" },
     orders: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Order" }]
 });
 const adminSchema = new mongoose_1.default.Schema({
@@ -31,9 +33,11 @@ const productSchema = new mongoose_1.default.Schema({
     category: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Category" }],
     stock: Number,
 });
+productSchema.index({ name: 'text', description: 'text', category: "text" });
 const orderSchema = new mongoose_1.default.Schema({
     userId: { type: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "User" } },
-    items: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" }],
+    products: [{ productId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" },
+            quantity: Number }],
     price: Number,
     status: String,
     current: { type: Boolean, default: true },

@@ -46,7 +46,7 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const newAdmin = new db_1.Admin(obj);
     yield newAdmin.save();
     const token = jsonwebtoken_1.default.sign({ id: newAdmin._id }, auth_1.SECRETa, { expiresIn: "1h" });
-    return res.status(200).json({ message: "sognup success", token });
+    return res.status(200).json({ message: "signup success", token });
 }));
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
@@ -60,7 +60,7 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     if (!admin)
         return res.status(400).json({ message: "admin not found" });
     const token = jsonwebtoken_1.default.sign({ id: admin._id }, auth_1.SECRETa, { expiresIn: "1h" });
-    return res.status(200).json({ message: "signup success", token });
+    return res.status(200).json({ message: "signin success", token });
 }));
 router.post("/products", auth_2.adminAuth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const obj = req.body;

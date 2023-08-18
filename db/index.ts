@@ -3,9 +3,9 @@ import { boolean } from "zod";
 
 const cartSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    products: [{item:{type: mongoose.Schema.Types.ObjectId,ref: "Product" },
+    products: [{productId:{type: mongoose.Schema.Types.ObjectId,ref: "Product" },
      quantity:Number} ],
-    price:Number,
+    price:{type:Number, default:0},
     size:{type:Number, default:0}
 });
 
@@ -13,7 +13,9 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String,
     password: String,
-    cart: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" }, // Reference to the Cart schema
+    address:String,
+    pincode:Number,
+    cartId: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" }, // Reference to the Cart schema
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }]
 });
 
@@ -30,10 +32,12 @@ const productSchema = new mongoose.Schema({
     category:[{type: mongoose.Schema.Types.ObjectId, ref:"Category"}],
     stock:Number,
 });
+productSchema.index({ name: 'text', description: 'text',category:"text" });
 
 const orderSchema = new mongoose.Schema({
     userId:{type:{type: mongoose.Schema.Types.ObjectId, ref:"User"}},
-    items:[{type: mongoose.Schema.Types.ObjectId, ref:"Product"}],
+    products: [{productId:{type: mongoose.Schema.Types.ObjectId,ref: "Product" },
+     quantity:Number}],
     price:Number,
     status:String,
     current:{type:Boolean, default: true},
